@@ -79,6 +79,7 @@ public class FuenfGewinnt extends JFrame implements ActionListener {
 		}
 		else if(siegerErmitteln() == -1) {
 			label.setText("SPIEL IST VORBEI, SPIELER 2('0') HAT GEWONNEN");
+			return;
 		}
 		int t = 0;
 		for(int h = 0; h < 9; h++) {
@@ -111,6 +112,7 @@ public class FuenfGewinnt extends JFrame implements ActionListener {
 	}
 	else if(siegerErmitteln() == -1) {
 		label.setText("SPIEL IST VORBEI, SPIELER 2('0') HAT GEWONNEN");
+		return;
 	}
 	}
 	
