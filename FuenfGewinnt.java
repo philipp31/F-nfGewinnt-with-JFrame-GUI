@@ -1,5 +1,5 @@
 
-public class FuenfGewinnt {// Interface ACTIONLISTENER wird hier implmentiert
+public class FuenfGewinnt {
 	
 	
 	public static void main(String[] args){
