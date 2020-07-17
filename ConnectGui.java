@@ -10,13 +10,13 @@ import javax.swing.SwingConstants;
 
 public class ConnectGui extends JFrame implements ActionListener {
 	
-	private JLabel label;
-	private JButton[] b;			// button als Array fuer das Spielfeld
-	private JLabel 	label2;
-	private JLabel[][] labelArray;
-	private GameAnalysis gameAnalysis;
-	private int spieler;
-	private int[] freeSpace;
+	private JLabel label;	// erster Text/Ueberschrift 
+	private JLabel 	label2;	// zweiter Text/Ubeberschrift
+	private JLabel[][] labelArray;	//Spielfeld als Text
+	private JButton[] b;			// button als Array fuer das Fuellen des Spielfelds
+	private GameAnalysis gameAnalysis;	// Analysierungsobjekt, dass den Game-Flow kontrolliert
+	private int spieler;	// information welcher Spieler dran ist
+	private int[] freeSpace;	// Anzahl verbliebender freier Positionen je Spalte
 	
 	public ConnectGui() {
 		super("Das ist ein Testframe");					// Aufrufen des Konstruktors der Vaterklasse
@@ -50,7 +50,7 @@ public class ConnectGui extends JFrame implements ActionListener {
 		b = new JButton[9];						// Die 9 Tasten zum Befüllen des Spielfelds
 		labelArray = new JLabel[7][9];			// Das SPIELFELD der Größe 7x9
 		freeSpace = new int[9];
-		gameAnalysis = new GameAnalysis(labelArray);
+		gameAnalysis = new GameAnalysis(labelArray);	// die Analysierungs-Instanz braucht zwingend das Spielfeld
 		
 		label.setLocation(500-100, 20);							// Um mittig zu platzieren eigene Breite abziehen
 		label.setSize(300,50);		//  (zur Seite, Nach Unten)
@@ -113,13 +113,26 @@ public class ConnectGui extends JFrame implements ActionListener {
 			label.setText("Es ist Spieler 2 dran (->hat das '0') ");
 		}
 		if(gameAnalysis.siegerErmitteln() == 1) {
-				label.setText("SPIEL IST VORBEI, SPIELER 1('X') HAT GEWONNEN");
+				label.setText("SPIEL IST VORBEI, SPIELER 1 ('X') HAT GEWONNEN");
+				markWinningLine(gameAnalysis.getWinnigLine());	// mark the winning Line red!
 				return;
 		}
 		else if(gameAnalysis.siegerErmitteln() == -1) {
-			label.setText("SPIEL IST VORBEI, SPIELER 2('0') HAT GEWONNEN");
+			markWinningLine(gameAnalysis.getWinnigLine());	// mark the winning Line red!
+			label.setText("SPIEL IST VORBEI, SPIELER 2 ('0') HAT GEWONNEN");
 			return;
 		}
 	}
-
+	
+	
+	public void markWinningLine(int[][] lineInfo) {
+		for(int i = 0; i < 7; i++) {		// Zeilen
+			for(int t = 0; t < 9; t++) {	// Spalten
+				if(lineInfo[i][t] == 1) {
+					labelArray[i][t].setBackground(Color.red);
+				}
+			}
+		}
+	}
+	
 }
